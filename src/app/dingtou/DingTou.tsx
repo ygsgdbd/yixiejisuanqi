@@ -6,6 +6,7 @@ import { useMemo } from "react";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 
+import AmountAndPrompt from "@/components/AmountAndPrompt";
 import DescriptionList from "@/components/DescriptionList";
 import {
   Card,
@@ -32,22 +33,38 @@ export default function DingTou() {
   const monthsWatch = watch("months");
   const rateWatch = watch("rate");
 
+  const amountPerMonth = useMemo(
+    () => BigNumberOrUndefined(amountPerMonthWatch),
+    [amountPerMonthWatch],
+  );
+
+  const months = useMemo(
+    () => BigNumberOrUndefined(monthsWatch),
+    [monthsWatch],
+  );
+
+  const rate = useMemo(
+    () => BigNumberOrUndefined(rateWatch)?.div(100),
+    [rateWatch],
+  );
+
   const income = useMemo(() => {
-    const amountPerYear = BigNumberOrUndefined(amountPerMonthWatch)?.times(12);
-    const year = BigNumberOrUndefined(monthsWatch)?.dp(0)?.div(12);
-    const rate = BigNumberOrUndefined(rateWatch)?.div(100);
-    if (amountPerYear && year && rate) {
-      return amountPerYear
-        .times(rate.plus(1))
-        .times(rate.plus(1).pow(year).minus(1))
-        .div(rate);
+    if (amountPerMonth && months && rate) {
+      return BigNumber(1)
+        .plus(rate.div(12))
+        .pow(months)
+        .minus(1)
+        .div(rate.div(12))
+        .times(amountPerMonth);
     }
-  }, [amountPerMonthWatch, monthsWatch, rateWatch]);
+  }, [amountPerMonth, months, rate]);
 
   const principal = useMemo(() => {
-    return BigNumberOrUndefined(amountPerMonthWatch)?.times(
-      BigNumberOr0(monthsWatch),
-    );
+    if (amountPerMonthWatch && monthsWatch) {
+      return BigNumberOrUndefined(amountPerMonthWatch)?.times(
+        BigNumberOr0(monthsWatch),
+      );
+    }
   }, [amountPerMonthWatch, monthsWatch]);
 
   const totalIncome = useMemo(() => {
@@ -59,7 +76,7 @@ export default function DingTou() {
   return (
     <Card>
       <CardHeader>
-        <CardTitle>定投计算器</CardTitle>
+        <CardTitle>年复利计算器</CardTitle>
       </CardHeader>
       <CardContent>
         <div className={"grid gap-4"}>
@@ -81,15 +98,15 @@ export default function DingTou() {
             items={[
               {
                 team: "本金",
-                detail: principal?.dp(2, BigNumber.ROUND_DOWN).toFormat(),
+                detail: <AmountAndPrompt n={principal} />,
               },
               {
                 team: "收益",
-                detail: income?.dp(2, BigNumber.ROUND_DOWN).toFormat(),
+                detail: <AmountAndPrompt n={income} />,
               },
               {
                 team: "收益 + 本金",
-                detail: totalIncome?.dp(2, BigNumber.ROUND_DOWN).toFormat(),
+                detail: <AmountAndPrompt n={totalIncome} />,
               },
             ]}
           />

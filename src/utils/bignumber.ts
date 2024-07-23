@@ -12,3 +12,9 @@ export const BigNumberOrUndefined = (n: BigNumberValueOrNil) => {
 export const BigNumberOr0 = (n: BigNumberValueOrNil) => {
   return BigNumberOrUndefined(n) ?? BigNumber(0);
 };
+
+export const formatCNY = (n: BigNumberValueOrNil) => {
+  return (
+    BigNumberOrUndefined(n)?.dp(2, BigNumber.ROUND_DOWN).toFormat() ?? "--"
+  );
+};

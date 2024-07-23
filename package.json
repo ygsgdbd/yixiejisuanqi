@@ -3,16 +3,18 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "next dev",
+    "dev": "next dev --turbo",
     "build": "next build",
     "start": "next start",
     "lint": "next lint"
   },
   "dependencies": {
     "@hookform/resolvers": "^3.9.0",
+    "@radix-ui/react-checkbox": "^1.1.1",
     "@radix-ui/react-dialog": "^1.1.1",
     "@radix-ui/react-label": "^2.1.0",
     "@radix-ui/react-slot": "^1.1.0",
+    "@radix-ui/react-switch": "^1.1.0",
     "@tanstack/react-form": "^0.26.4",
     "@tanstack/zod-form-adapter": "^0.26.4",
     "bignumber.js": "^9.1.2",
@@ -20,6 +22,7 @@
     "clsx": "^2.1.1",
     "lodash": "^4.17.21",
     "lucide-react": "^0.414.0",
+    "moment": "^2.30.1",
     "next": "14.2.5",
     "react": "^18",
     "react-dom": "^18",

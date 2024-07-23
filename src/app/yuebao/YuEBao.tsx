@@ -4,7 +4,9 @@ import BigNumber from "bignumber.js";
 import { useCallback, useEffect, useMemo, useState } from "react";
 import { useSetState } from "react-use";
 
+import AmountAndPrompt from "@/components/AmountAndPrompt";
 import DescriptionList from "@/components/DescriptionList";
+import useAmountPromptFn from "@/hooks/currency/useAmountPromptFn";
 import { BigNumberValueOrNil } from "@/interface/base";
 import { Badge } from "@/shadcn/components/ui/badge";
 import { Button } from "@/shadcn/components/ui/button";
@@ -19,6 +21,7 @@ import { Label } from "@/shadcn/components/ui/label";
 import { BigNumberOr0, BigNumberOrUndefined } from "@/utils/bignumber";
 
 export default function YuEBao() {
+  const amountPromptFn = useAmountPromptFn();
   const [formData, setFormData] = useSetState<{
     principal?: string;
     rate?: string;
@@ -42,27 +45,10 @@ export default function YuEBao() {
     return totalIncome?.minus(BigNumberOr0(formData.principal));
   }, [formData.principal, totalIncome]);
 
-  const aa = useCallback((n: BigNumberValueOrNil) => {
-    const num = BigNumberOrUndefined(n);
-    if (num?.gte(100000 * 10000 * 10000)) return undefined;
-    if (num?.gte(10000 * 10000 * 10000)) return "兆";
-    if (num?.gte(1000 * 10000 * 10000)) return "千亿";
-    if (num?.gte(100 * 10000 * 10000)) return "百亿";
-    if (num?.gte(10 * 10000 * 10000)) return "十亿";
-    if (num?.gte(10000 * 10000)) return "亿";
-    if (num?.gte(1000 * 10000)) return "千万";
-    if (num?.gte(100 * 10000)) return "百万";
-    if (num?.gte(10 * 10000)) return "十万";
-    if (num?.gte(10000)) return "万";
-    if (num?.gte(1000)) return "千";
-    if (num?.gte(100)) return "百";
-    if (num?.gte(10)) return "十";
-  }, []);
-
   return (
     <Card>
       <CardHeader>
-        <CardTitle>退休金计算器</CardTitle>
+        <CardTitle>余额宝计算器</CardTitle>
       </CardHeader>
       <CardContent>
         <div className={"grid gap-4"}>
@@ -72,8 +58,10 @@ export default function YuEBao() {
               onChange={(e) => setFormData({ principal: e.target.value })}
               value={formData.principal}
             />
-            {aa(formData.principal) && (
-              <Badge className={"self-start"}>{aa(formData.principal)}</Badge>
+            {amountPromptFn(formData.principal) && (
+              <Badge className={"self-start"}>
+                {amountPromptFn(formData.principal)}
+              </Badge>
             )}
           </div>
           <div className={"grid gap-2"}>
@@ -117,19 +105,11 @@ export default function YuEBao() {
             items={[
               {
                 team: "收益",
-                detail: (
-                  <div className={"flex items-center gap-2"}>
-                    {income?.dp(2, BigNumber.ROUND_DOWN).toFormat()}
-                  </div>
-                ),
+                detail: <AmountAndPrompt n={income} />,
               },
               {
                 team: "本金 + 收益",
-                detail: (
-                  <div className={"flex items-center gap-2"}>
-                    {totalIncome?.dp(2, BigNumber.ROUND_DOWN).toFormat()}
-                  </div>
-                ),
+                detail: <AmountAndPrompt n={totalIncome} />,
               },
             ]}
           />
