@@ -13,10 +13,8 @@ import {
   CardHeader,
   CardTitle,
 } from "@/shadcn/components/ui/card";
-import { Input } from "@/shadcn/components/ui/input";
 
 export default function UnixTimestamp() {
-  // const [nowTimestamp, setNowTimestamp] = useState<number>(+new Date());
   const [, setId] = useState<number>();
 
   useEffectOnce(() => {
