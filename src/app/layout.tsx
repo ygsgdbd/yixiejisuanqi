@@ -1,6 +1,5 @@
 import "./globals.css";
 
-import BigNumber from "bignumber.js";
 import type { Metadata } from "next";
 import { IBM_Plex_Mono, IBM_Plex_Sans, Inter } from "next/font/google";
 import Link from "next/link";

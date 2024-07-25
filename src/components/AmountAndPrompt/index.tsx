@@ -1,13 +1,12 @@
-import BigNumber from "bignumber.js";
 import { useMemo } from "react";
 
 import CNYCurrencyText from "@/components/CNYCurrencyText";
 import useAmountPromptFn from "@/hooks/currency/useAmountPromptFn";
-import { BigNumberValueOrNil } from "@/interface/base";
+import { DecimalValueOrNil } from "@/interface/base";
 import { Badge } from "@/shadcn/components/ui/badge";
-import { BigNumberOrUndefined, formatCNY } from "@/utils/bignumber";
+import { formatCNY } from "@/utils/bignumber";
 
-export default function AmountAndPrompt({ n }: { n: BigNumberValueOrNil }) {
+export default function AmountAndPrompt({ n }: { n: DecimalValueOrNil }) {
   const amountPromptFn = useAmountPromptFn();
 
   const prompt = useMemo(() => {

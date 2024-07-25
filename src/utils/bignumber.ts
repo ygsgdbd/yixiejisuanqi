@@ -1,20 +1,28 @@
-import BigNumber from "bignumber.js";
+import Decimal from "decimal.js";
 import _ from "lodash";
 
-import { BigNumberValueOrNil } from "@/interface/base";
+import { DecimalValueOrNil } from "@/interface/base";
 import { kCNYDecimalPlaces, kNumberPlaceholder } from "@/utils/constant";
 
-export const BigNumberOrUndefined = (n: BigNumberValueOrNil) => {
+export const formatCNY = (n: DecimalValueOrNil) => {
+  return (
+    DecimalOrUndefined(n)
+      ?.toDP(kCNYDecimalPlaces, Decimal.ROUND_DOWN)
+      .toString() ?? kNumberPlaceholder
+  );
+};
+
+export const DecimalOrUndefined = (n: DecimalValueOrNil) => {
   if (_.isNil(n)) return undefined;
-  const _n = BigNumber(n);
-  return _n.isFinite() ? _n : undefined;
+  if (_.isEmpty(n)) return undefined;
+  try {
+    const decimal = new Decimal(n);
+    return decimal.isFinite() ? decimal : undefined;
+  } catch (_) {
+    return undefined;
+  }
 };
 
-export const BigNumberOr0 = (n: BigNumberValueOrNil) => {
-  return BigNumberOrUndefined(n) ?? BigNumber(0);
+export const DecimalOr0 = (n: DecimalValueOrNil) => {
+  return DecimalOrUndefined(n) ?? new Decimal(0);
 };
-
-export const formatCNY = (n: BigNumberValueOrNil) =>
-  BigNumberOrUndefined(n)
-    ?.dp(kCNYDecimalPlaces, BigNumber.ROUND_DOWN)
-    .toFormat() ?? kNumberPlaceholder;
