@@ -1,6 +1,7 @@
 import BigNumber from "bignumber.js";
 import { useMemo } from "react";
 
+import CNYCurrencyText from "@/components/CNYCurrencyText";
 import useAmountPromptFn from "@/hooks/currency/useAmountPromptFn";
 import { BigNumberValueOrNil } from "@/interface/base";
 import { Badge } from "@/shadcn/components/ui/badge";
@@ -15,7 +16,7 @@ export default function AmountAndPrompt({ n }: { n: BigNumberValueOrNil }) {
 
   return (
     <div className={"flex flex-col items-start gap-1"}>
-      <div>{formatCNY(n)}</div>
+      <CNYCurrencyText n={n} />
       {prompt && <Badge variant={"default"}>{prompt}</Badge>}
     </div>
   );
