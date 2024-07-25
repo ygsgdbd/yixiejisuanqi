@@ -1,5 +1,7 @@
 "use client";
 
+import "moment/locale/zh-cn";
+
 import jose, { decodeJwt } from "jose";
 import moment from "moment";
 import { useEffect, useMemo, useState } from "react";
@@ -48,23 +50,24 @@ export default function JWTParser() {
           <Textarea
             className={"min-h-32"}
             onChange={(e) => setJwt(e.target.value)}
-            placeholder={
-              "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ.SflKxwRJSMeKKF2QT4fwpMeJf36POk6yJV_adQssw5c"
-            }
+            placeholder={"eyJhbGciOiJI ........"}
             value={jwt}
           />
           {/* 原始数据 */}
           {claims && (
-            <pre className={"rounded-lg bg-secondary p-4 text-sm"}>
-              <code>{JSON.stringify(claims, null, 2)}</code>
-            </pre>
+            <div>
+              <pre className={"rounded-lg bg-secondary p-4 text-xs"}>
+                <code>{JSON.stringify(claims, null, 2)}</code>
+              </pre>
+            </div>
           )}
           {/* 数据解析 */}
-          {claims && (
+          <div className={"rounded-md border"}>
             <Table>
               <TableHeader>
                 <TableRow>
                   <TableHead>字段</TableHead>
+                  <TableHead>描述</TableHead>
                   <TableHead>原始值</TableHead>
                   <TableHead>格式化</TableHead>
                   <TableHead>备注</TableHead>
@@ -73,41 +76,42 @@ export default function JWTParser() {
               <TableBody>
                 <TableRow>
                   <TableCell>iss</TableCell>
+                  <TableCell>颁发者</TableCell>
                   <TableCell>{claims?.iss}</TableCell>
                   <TableCell></TableCell>
                   <TableCell></TableCell>
                 </TableRow>
                 <TableRow>
                   <TableCell>sub</TableCell>
+                  <TableCell>数据包</TableCell>
                   <TableCell>{claims?.sub}</TableCell>
                   <TableCell></TableCell>
                   <TableCell></TableCell>
                 </TableRow>
                 <TableRow>
                   <TableCell>aud</TableCell>
+                  <TableCell></TableCell>
                   <TableCell>{claims?.aud}</TableCell>
                   <TableCell></TableCell>
                   <TableCell></TableCell>
                 </TableRow>
                 <TableRow>
                   <TableCell>jti</TableCell>
+                  <TableCell>JWT ID</TableCell>
                   <TableCell>{claims?.jti}</TableCell>
                   <TableCell></TableCell>
                   <TableCell></TableCell>
                 </TableRow>
                 <TableRow>
                   <TableCell>nbf</TableCell>
+                  <TableCell>不早于</TableCell>
                   <TableCell>{claims?.nbf}</TableCell>
                   <TableCell></TableCell>
                   <TableCell></TableCell>
                 </TableRow>
                 <TableRow>
-                  <TableCell>
-                    <div className={"grid gap-1"}>
-                      <span>exp</span>
-                      <span>过期时间</span>
-                    </div>
-                  </TableCell>
+                  <TableCell>exp</TableCell>
+                  <TableCell>过期时间</TableCell>
                   <TableCell>{claims?.exp}</TableCell>
                   <TableCell>
                     {claims?.exp && (
@@ -124,12 +128,8 @@ export default function JWTParser() {
                   <TableCell></TableCell>
                 </TableRow>
                 <TableRow>
-                  <TableCell>
-                    <div className={"grid gap-1"}>
-                      <span>iat</span>
-                      <span>颁发时间</span>
-                    </div>
-                  </TableCell>
+                  <TableCell>iat</TableCell>
+                  <TableCell>颁发时间</TableCell>
                   <TableCell>{claims?.iat}</TableCell>
                   <TableCell>
                     {claims?.iat && (
@@ -147,7 +147,7 @@ export default function JWTParser() {
                 </TableRow>
               </TableBody>
             </Table>
-          )}
+          </div>
         </div>
       </CardContent>
     </Card>

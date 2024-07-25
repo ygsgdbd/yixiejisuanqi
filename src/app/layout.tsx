@@ -13,7 +13,7 @@ export const metadata: Metadata = {
   title: "一些计算器",
 };
 
-const nextFont = IBM_Plex_Sans({
+const nextFont = IBM_Plex_Mono({
   subsets: ["latin"],
   weight: ["100", "200", "300", "400", "500", "600", "700"],
 });
