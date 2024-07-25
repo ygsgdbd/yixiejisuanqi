@@ -1,8 +1,8 @@
 "use client";
 
 import { zodResolver } from "@hookform/resolvers/zod";
-import BigNumber from "bignumber.js";
-import { useMemo } from "react";
+import Decimal from "decimal.js";
+import { useEffect, useMemo } from "react";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 
@@ -16,7 +16,7 @@ import {
 } from "@/shadcn/components/ui/card";
 import { Input } from "@/shadcn/components/ui/input";
 import { Label } from "@/shadcn/components/ui/label";
-import { BigNumberOr0, BigNumberOrUndefined } from "@/utils/bignumber";
+import { DecimalOr0, DecimalOrUndefined } from "@/utils/bignumber";
 
 export default function DingTou() {
   const scheme = z.object({
@@ -34,23 +34,20 @@ export default function DingTou() {
   const rateWatch = watch("rate");
 
   const amountPerMonth = useMemo(
-    () => BigNumberOrUndefined(amountPerMonthWatch),
+    () => DecimalOrUndefined(amountPerMonthWatch),
     [amountPerMonthWatch],
   );
 
-  const months = useMemo(
-    () => BigNumberOrUndefined(monthsWatch),
-    [monthsWatch],
-  );
+  const months = useMemo(() => DecimalOrUndefined(monthsWatch), [monthsWatch]);
 
   const rate = useMemo(
-    () => BigNumberOrUndefined(rateWatch)?.div(100),
+    () => DecimalOrUndefined(rateWatch)?.div(100),
     [rateWatch],
   );
 
   const income = useMemo(() => {
     if (amountPerMonth && months && rate) {
-      return BigNumber(1)
+      return new Decimal(1)
         .plus(rate.div(12))
         .pow(months)
         .minus(1)
@@ -61,15 +58,15 @@ export default function DingTou() {
 
   const principal = useMemo(() => {
     if (amountPerMonthWatch && monthsWatch) {
-      return BigNumberOrUndefined(amountPerMonthWatch)?.times(
-        BigNumberOr0(monthsWatch),
+      return DecimalOrUndefined(amountPerMonthWatch)?.times(
+        DecimalOr0(monthsWatch),
       );
     }
   }, [amountPerMonthWatch, monthsWatch]);
 
   const totalIncome = useMemo(() => {
     if (income) {
-      return BigNumberOrUndefined(principal)?.plus(income);
+      return DecimalOrUndefined(principal)?.plus(income);
     }
   }, [income, principal]);
 

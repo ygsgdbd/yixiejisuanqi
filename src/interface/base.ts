@@ -1,3 +1,3 @@
-import BigNumber from "bignumber.js";
+import Decimal from "decimal.js";
 
-export type BigNumberValueOrNil = BigNumber.Value | undefined | null;
+export type DecimalValueOrNil = Decimal.Value | undefined | null;

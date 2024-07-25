@@ -1,11 +1,11 @@
 import { useCallback } from "react";
 
-import { BigNumberValueOrNil } from "@/interface/base";
-import { BigNumberOrUndefined } from "@/utils/bignumber";
+import { DecimalValueOrNil } from "@/interface/base";
+import { DecimalOrUndefined } from "@/utils/bignumber";
 
 export default function useAmountPromptFn() {
-  return useCallback((n: BigNumberValueOrNil) => {
-    const num = BigNumberOrUndefined(n);
+  return useCallback((n: DecimalValueOrNil) => {
+    const num = DecimalOrUndefined(n);
     if (num?.gte(100000000 * 10000 * 10000)) return "😓";
     if (num?.gte(10000000 * 10000 * 10000)) return "千万亿";
     if (num?.gte(1000000 * 10000 * 10000)) return "百万亿";
