@@ -1,19 +1,27 @@
 import BigNumber from "bignumber.js";
+import _ from "lodash";
 import { useMemo } from "react";
 
 import { BigNumberValueOrNil } from "@/interface/base";
 import { BigNumberOrUndefined } from "@/utils/bignumber";
+import { kCNYDecimalPlaces, kNumberPlaceholder } from "@/utils/constant";
 
 export default function CNYCurrencyText({ n }: { n: BigNumberValueOrNil }) {
-  const num = BigNumberOrUndefined(n)?.toFixed();
+  const formatted = useMemo(() => {
+    const str = BigNumberOrUndefined(n)
+      ?.dp(kCNYDecimalPlaces, BigNumber.ROUND_DOWN)
+      .toFormat();
+    return [str?.split(".")?.[0], str?.split(".")?.[1]];
+  }, [n]);
 
-  if (num) {
+  if (formatted?.[0]) {
     return (
       <span>
-        {BigNumberOrUndefined(n)?.integerValue(BigNumber.ROUND_DOWN).toFormat()}
+        <span>{formatted?.[0]}</span>
+        {formatted?.[1] && <small>.{formatted?.[1]}</small>}
       </span>
     );
   } else {
-    return "--";
+    return kNumberPlaceholder;
   }
 }

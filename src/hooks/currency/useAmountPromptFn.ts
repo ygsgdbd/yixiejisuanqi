@@ -6,8 +6,11 @@ import { BigNumberOrUndefined } from "@/utils/bignumber";
 export default function useAmountPromptFn() {
   return useCallback((n: BigNumberValueOrNil) => {
     const num = BigNumberOrUndefined(n);
-    if (num?.gte(100000 * 10000 * 10000)) return undefined;
-    if (num?.gte(10000 * 10000 * 10000)) return "兆";
+    if (num?.gte(100000000 * 10000 * 10000)) return "😓";
+    if (num?.gte(10000000 * 10000 * 10000)) return "千万亿";
+    if (num?.gte(1000000 * 10000 * 10000)) return "百万亿";
+    if (num?.gte(100000 * 10000 * 10000)) return "十万亿";
+    if (num?.gte(10000 * 10000 * 10000)) return "万亿";
     if (num?.gte(1000 * 10000 * 10000)) return "千亿";
     if (num?.gte(100 * 10000 * 10000)) return "百亿";
     if (num?.gte(10 * 10000 * 10000)) return "十亿";
@@ -19,5 +22,6 @@ export default function useAmountPromptFn() {
     if (num?.gte(1000)) return "千";
     if (num?.gte(100)) return "百";
     if (num?.gte(10)) return "十";
+    if (num?.gte(1)) return "个";
   }, []);
 }

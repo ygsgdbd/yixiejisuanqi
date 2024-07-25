@@ -111,10 +111,6 @@ export default function YuEBao() {
                 team: "本金 + 收益",
                 detail: <AmountAndPrompt n={totalIncome} />,
               },
-              {
-                team: "收益率 (收益 / 本金)",
-                detail: <AmountAndPrompt n={totalIncome} />,
-              },
             ]}
           />
         </div>
