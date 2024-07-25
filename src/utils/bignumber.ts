@@ -14,7 +14,6 @@ export const formatCNY = (n: DecimalValueOrNil) => {
 
 export const DecimalOrUndefined = (n: DecimalValueOrNil) => {
   if (_.isNil(n)) return undefined;
-  if (_.isEmpty(n)) return undefined;
   try {
     const decimal = new Decimal(n);
     return decimal.isFinite() ? decimal : undefined;

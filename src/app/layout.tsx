@@ -10,7 +10,7 @@ import { cn } from "@/lib/utils";
 import { Button } from "@/shadcn/components/ui/button";
 
 export const metadata: Metadata = {
-  title: "各种计算器、各种工具",
+  title: "一些计算器",
 };
 
 const nextFont = IBM_Plex_Sans({
