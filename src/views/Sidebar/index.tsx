@@ -43,6 +43,11 @@ export default function Sidebar() {
         link: "/fireJiSuan",
         tags: ["Fire"],
       },
+      {
+        title: "一些假数据",
+        link: "/fakeData",
+        tags: ["Lorem", "FakeData"],
+      },
     ];
   }, []);
 

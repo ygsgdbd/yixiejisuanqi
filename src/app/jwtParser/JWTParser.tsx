@@ -1,15 +1,11 @@
 "use client";
 
-import "moment/locale/zh-cn";
-
 import jose, { decodeJwt } from "jose";
 import { LinkIcon } from "lucide-react";
 import moment from "moment";
 import Link from "next/link";
 import { useEffect, useMemo, useState } from "react";
 
-import DescriptionList from "@/components/DescriptionList";
-import { Button } from "@/shadcn/components/ui/button";
 import {
   Card,
   CardContent,
@@ -45,19 +41,6 @@ export default function JWTParser() {
       }
     }
   }, [jwt]);
-
-  useEffect(() => {
-    moment.locale("zh-CN");
-  }, []);
-
-  // const data = useMemo<IClaims[]>(() => {
-  //   return [
-  //     {
-  //       cla: "raw",
-  //       url: "原始数据",
-  //     },
-  //   ];
-  // }, []);
 
   return (
     <Card>

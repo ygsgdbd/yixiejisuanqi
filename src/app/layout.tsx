@@ -8,6 +8,7 @@ import { useEffectOnce } from "react-use";
 
 import { cn } from "@/lib/utils";
 import { Button } from "@/shadcn/components/ui/button";
+import { Toaster } from "@/shadcn/components/ui/sonner";
 import Sidebar from "@/views/Sidebar";
 
 export const metadata: Metadata = {
@@ -50,6 +51,7 @@ export default function RootLayout({
             </div>
           </div>
         </div>
+        <Toaster position={"top-right"} />
       </body>
     </html>
   );
