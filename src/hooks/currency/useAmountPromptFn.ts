@@ -22,6 +22,6 @@ export default function useAmountPromptFn() {
     if (num?.gte(1000)) return "千";
     if (num?.gte(100)) return "百";
     if (num?.gte(10)) return "十";
-    if (num?.gte(1)) return "个";
+    if (num?.gte(1)) return "元";
   }, []);
 }
