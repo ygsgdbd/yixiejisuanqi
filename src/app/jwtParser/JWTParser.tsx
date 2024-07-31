@@ -3,10 +3,13 @@
 import "moment/locale/zh-cn";
 
 import jose, { decodeJwt } from "jose";
+import { LinkIcon } from "lucide-react";
 import moment from "moment";
+import Link from "next/link";
 import { useEffect, useMemo, useState } from "react";
 
 import DescriptionList from "@/components/DescriptionList";
+import { Button } from "@/shadcn/components/ui/button";
 import {
   Card,
   CardContent,
@@ -23,6 +26,14 @@ import {
 } from "@/shadcn/components/ui/table";
 import { Textarea } from "@/shadcn/components/ui/textarea";
 
+interface IClaims {
+  cla: string;
+  url: string;
+  desc: string;
+  raw: string;
+  format: string;
+}
+
 export default function JWTParser() {
   const [jwt, setJwt] = useState<string>();
   const claims = useMemo(() => {
@@ -38,6 +49,15 @@ export default function JWTParser() {
   useEffect(() => {
     moment.locale("zh-CN");
   }, []);
+
+  // const data = useMemo<IClaims[]>(() => {
+  //   return [
+  //     {
+  //       cla: "raw",
+  //       url: "原始数据",
+  //     },
+  //   ];
+  // }, []);
 
   return (
     <Card>
@@ -75,14 +95,42 @@ export default function JWTParser() {
               </TableHeader>
               <TableBody>
                 <TableRow>
-                  <TableCell>iss</TableCell>
+                  <TableCell>
+                    <div className={"flex items-center gap-2"}>
+                      iss
+                      <Link
+                        href={
+                          "https://www.rfc-editor.org/rfc/rfc7519#section-4.1.1"
+                        }
+                        target={"_blank"}
+                      >
+                        <LinkIcon
+                          className={"size-3 text-secondary-foreground"}
+                        />
+                      </Link>
+                    </div>
+                  </TableCell>
                   <TableCell>颁发者</TableCell>
                   <TableCell>{claims?.iss}</TableCell>
                   <TableCell></TableCell>
                   <TableCell></TableCell>
                 </TableRow>
                 <TableRow>
-                  <TableCell>sub</TableCell>
+                  <TableCell>
+                    <div className={"flex items-center gap-2"}>
+                      sub
+                      <Link
+                        href={
+                          "https://www.rfc-editor.org/rfc/rfc7519#section-4.1.2"
+                        }
+                        target={"_blank"}
+                      >
+                        <LinkIcon
+                          className={"size-3 text-secondary-foreground"}
+                        />
+                      </Link>
+                    </div>
+                  </TableCell>
                   <TableCell>数据包</TableCell>
                   <TableCell>{claims?.sub}</TableCell>
                   <TableCell></TableCell>

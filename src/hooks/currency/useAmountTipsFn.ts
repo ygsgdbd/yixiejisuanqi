@@ -3,7 +3,7 @@ import { useCallback } from "react";
 import { DecimalValueOrNil } from "@/interface/base";
 import { DecimalOrUndefined } from "@/utils/bignumber";
 
-export default function useAmountPromptFn() {
+export default function useAmountTipsFn() {
   return useCallback((n: DecimalValueOrNil) => {
     const num = DecimalOrUndefined(n);
     if (num?.gte(100000000 * 10000 * 10000)) return "😓";
@@ -23,5 +23,6 @@ export default function useAmountPromptFn() {
     if (num?.gte(100)) return "百";
     if (num?.gte(10)) return "十";
     if (num?.gte(1)) return "元";
+    return undefined;
   }, []);
 }

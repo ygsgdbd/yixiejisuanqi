@@ -10,12 +10,13 @@ import { z } from "zod";
 import AmountAndPrompt from "@/components/AmountAndPrompt";
 import DescriptionList from "@/components/DescriptionList";
 import InputMask from "@/components/InputMask";
-import useAmountPromptFn from "@/hooks/currency/useAmountPromptFn";
+import useAmountTipsFn from "@/hooks/currency/useAmountTipsFn";
 import { Badge } from "@/shadcn/components/ui/badge";
 import { Button } from "@/shadcn/components/ui/button";
 import {
   Card,
   CardContent,
+  CardDescription,
   CardHeader,
   CardTitle,
 } from "@/shadcn/components/ui/card";
@@ -25,7 +26,7 @@ import { DecimalOrUndefined } from "@/utils/bignumber";
 import { maskForNumeric } from "@/utils/masks";
 
 export default function YuEBao() {
-  const amountPromptFn = useAmountPromptFn();
+  const amountPromptFn = useAmountTipsFn();
 
   const scheme = z.object({
     principal: z.coerce.number().optional(),
@@ -52,12 +53,13 @@ export default function YuEBao() {
 
   const income = useMemo(() => {
     return totalIncome?.minus(DecimalOrUndefined(principal) ?? 0);
-  }, [totalIncome]);
+  }, [principal, totalIncome]);
 
   return (
     <Card>
       <CardHeader>
         <CardTitle>余额宝计算器</CardTitle>
+        <CardDescription>通过本金，年化率和天数计算收益</CardDescription>
       </CardHeader>
       <CardContent>
         <form className={"grid gap-4"} onSubmit={handleSubmit(() => {})}>

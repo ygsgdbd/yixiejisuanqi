@@ -8,6 +8,7 @@ import { useEffectOnce } from "react-use";
 
 import { cn } from "@/lib/utils";
 import { Button } from "@/shadcn/components/ui/button";
+import Sidebar from "@/views/Sidebar";
 
 export const metadata: Metadata = {
   title: "一些计算器",
@@ -25,8 +26,8 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="zh">
-      <body className={cn(nextFont.className, "min-h-screen bg-background")}>
-        <div className={"grid"}>
+      <body className={cn(nextFont.className)}>
+        <div className={"flex h-screen flex-col overflow-hidden bg-background"}>
           <nav
             className={
               "flex items-center gap-4 border border-b border-secondary px-6 py-4"
@@ -38,7 +39,16 @@ export default function RootLayout({
               </Button>
             </Link>
           </nav>
-          <div className={"container p-6"}>{children}</div>
+          <div className={"relative flex-1"}>
+            <div
+              className={
+                "absolute inset-0 grid grid-cols-[auto_1fr] gap-4 p-4 *:overflow-y-auto"
+              }
+            >
+              <Sidebar />
+              <div>{children}</div>
+            </div>
+          </div>
         </div>
       </body>
     </html>

@@ -1,13 +1,13 @@
 import { useMemo } from "react";
 
 import CNYCurrencyText from "@/components/CNYCurrencyText";
-import useAmountPromptFn from "@/hooks/currency/useAmountPromptFn";
+import useAmountTipsFn from "@/hooks/currency/useAmountTipsFn";
 import { DecimalValueOrNil } from "@/interface/base";
 import { Badge } from "@/shadcn/components/ui/badge";
 import { formatCNY } from "@/utils/bignumber";
 
 export default function AmountAndPrompt({ n }: { n: DecimalValueOrNil }) {
-  const amountPromptFn = useAmountPromptFn();
+  const amountPromptFn = useAmountTipsFn();
 
   const prompt = useMemo(() => {
     return amountPromptFn(n);

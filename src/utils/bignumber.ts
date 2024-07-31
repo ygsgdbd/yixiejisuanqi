@@ -25,3 +25,7 @@ export const DecimalOrUndefined = (n: DecimalValueOrNil) => {
 export const DecimalOr0 = (n: DecimalValueOrNil) => {
   return DecimalOrUndefined(n) ?? new Decimal(0);
 };
+
+export const DecimalOr1 = (n: DecimalValueOrNil) => {
+  return DecimalOrUndefined(n) ?? new Decimal(1);
+};
