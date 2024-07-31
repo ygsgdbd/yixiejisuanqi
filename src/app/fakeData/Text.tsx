@@ -1,5 +1,6 @@
-import { fa, Faker, fakerZH_CN as faker, zh_CN } from "@faker-js/faker";
+import { fakerZH_CN as faker } from "@faker-js/faker";
 import { useEffect, useMemo, useState } from "react";
+import { useCopyToClipboard } from "react-use";
 import { toast } from "sonner";
 
 import { Button } from "@/shadcn/components/ui/button";
@@ -7,23 +8,15 @@ import { Textarea } from "@/shadcn/components/ui/textarea";
 import { fakeData } from "@/utils/fakeData";
 
 export default function Text() {
-  const fa = useMemo(
-    () =>
-      new Faker({
-        locale: [zh_CN],
-      }),
-    [],
-  );
-  const [str, setStr] = useState<string>("");
-
-  useEffect(() => {}, []);
+  const [str, setStr] = useState<string>(faker.lorem.words());
+  const [, copy] = useCopyToClipboard();
 
   return (
     <div className={"grid gap-2"}>
       <Textarea readOnly value={str} />
       {str && (
         <small className={"text-muted-foreground"}>
-          字符串长度: {str.length}
+          字符串长度：{str.length}
         </small>
       )}
       <div className={"flex items-center gap-2"}>
@@ -31,15 +24,16 @@ export default function Text() {
           <Button
             key={x}
             onClick={() => {
-              const newWords = fa.lorem.words(x);
-              setStr(newWords);
+              const words = faker.lorem.words(x);
+              setStr(words);
+              copy(words);
               toast.success("复制成功", {
-                description: `字符串长度: ${newWords.length}`,
+                description: `单词数 ${x}, 字符串长度 ${words.length}`,
               });
             }}
             size={"sm"}
           >
-            单词 x{x}
+            {x}
           </Button>
         ))}
       </div>
