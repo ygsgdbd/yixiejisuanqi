@@ -1,5 +1,5 @@
 {
-  "name": "various-calculators",
+  "name": "yixiejisuanqi",
   "version": "0.1.0",
   "private": true,
   "scripts": {
@@ -26,8 +26,8 @@
     "moment": "^2.30.1",
     "next": "14.2.5",
     "next-themes": "^0.3.0",
-    "react": "^18",
-    "react-dom": "^18",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1",
     "react-hook-form": "^7.52.1",
     "react-imask": "^7.6.1",
     "react-use": "^17.5.1",
@@ -38,19 +38,19 @@
   },
   "devDependencies": {
     "@types/lodash": "^4.17.7",
-    "@types/node": "^20",
-    "@types/react": "^18",
-    "@types/react-dom": "^18",
-    "eslint": "^8",
+    "@types/node": "^20.14.13",
+    "@types/react": "^18.3.3",
+    "@types/react-dom": "^18.3.0",
+    "eslint": "^8.57.0",
     "eslint-config-next": "14.2.5",
     "eslint-config-prettier": "^9.1.0",
     "eslint-plugin-prettier": "^5.2.1",
     "eslint-plugin-simple-import-sort": "^12.1.1",
-    "postcss": "^8",
+    "postcss": "^8.4.40",
     "prettier": "^3.3.3",
     "prettier-plugin-tailwindcss": "^0.6.5",
-    "tailwindcss": "^3.4.1",
-    "typescript": "^5"
+    "tailwindcss": "^3.4.7",
+    "typescript": "^5.5.4"
   },
   "packageManager": "pnpm@8.15.1+sha1.8adba2d20330c02d3856e18c4eb3819d1d3ca6aa"
 }

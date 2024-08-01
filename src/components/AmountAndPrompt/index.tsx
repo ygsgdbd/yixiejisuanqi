@@ -16,7 +16,7 @@ export default function AmountAndPrompt({ n }: { n: DecimalValueOrNil }) {
   return (
     <div className={"flex flex-col items-start gap-1"}>
       <CNYCurrencyText n={n} />
-      {prompt && <Badge variant={"default"}>{prompt}</Badge>}
+      {prompt && <Badge>{prompt}</Badge>}
     </div>
   );
 }
