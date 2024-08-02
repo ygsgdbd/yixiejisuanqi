@@ -66,40 +66,36 @@
 
     body {
         @apply bg-background text-foreground;
-
-
     }
 }
 
+/* 自定义滑块 */
+@layer base {
+    ::-webkit-scrollbar {
+        @apply size-1;
+    }
+
+    ::-webkit-scrollbar-track {
+        @apply bg-transparent;
+    }
+
+    ::-webkit-scrollbar-thumb {
+        @apply rounded;
+        @apply bg-secondary;
+    }
+}
+
+
 @layer components {
-    /**
-    IMaskInput 的样式，完全复制 Input
-     */
+    /** IMaskInput 的样式，完全复制 Input */
     .input-mask {
         @apply flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50
     }
 }
 
-/*
-        自定义全局滑块
-        */
-::-webkit-scrollbar {
-    @apply size-1;
-}
 
-::-webkit-scrollbar-track {
-    @apply bg-transparent;
-}
-
-::-webkit-scrollbar-thumb {
-    @apply rounded;
-    @apply bg-secondary;
-}
-
-@layer {
-    /*
-    隐藏滚动条
-    */
+@layer components {
+    /* 隐藏滚动条 */
     .scrollbar-hidden {
         scrollbar-width: none;
     }
