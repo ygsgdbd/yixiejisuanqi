@@ -1,3 +1,5 @@
 import Decimal from "decimal.js";
 
-export type DecimalValueOrNil = Decimal.Value | undefined | null;
+export type Nil = undefined | null;
+
+export type DecimalValueOrNil = Decimal.Value | Nil;
