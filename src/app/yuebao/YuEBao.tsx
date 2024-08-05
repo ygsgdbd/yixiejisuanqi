@@ -38,6 +38,11 @@ export default function YuEBao() {
     z.infer<typeof scheme>
   >({
     resolver: zodResolver(scheme),
+    defaultValues: {
+      principal: 10000,
+      days: 1,
+      rate: 4,
+    },
   });
 
   const [principal, rate, days] = watch(["principal", "rate", "days"]);
@@ -90,7 +95,7 @@ export default function YuEBao() {
               name={"rate"}
               render={({ field }) => (
                 <InputMask
-                  mask={maskForNumeric(8, 2)}
+                  mask={maskForNumeric(8, 8)}
                   {...field}
                   onAccept={field.onChange}
                   value={field.value?.toString()}
@@ -113,35 +118,22 @@ export default function YuEBao() {
               )}
             />
             <div className={"flex gap-2"}>
-              <Button
-                onClick={() =>
-                  setValue("days", 1, {
-                    shouldDirty: true,
-                    shouldValidate: true,
-                  })
-                }
-                size={"sm"}
-                type={"button"}
-                variant={"secondary"}
-              >
-                1 天
-              </Button>
-              <Button
-                onClick={() => setValue("days", 30, { shouldDirty: true })}
-                size={"sm"}
-                type={"button"}
-                variant={"secondary"}
-              >
-                30 天
-              </Button>
-              <Button
-                onClick={() => setValue("days", 365, { shouldDirty: true })}
-                size={"sm"}
-                type={"button"}
-                variant={"secondary"}
-              >
-                1 年
-              </Button>
+              {[1, 30, 90, 180, 365].map((x) => (
+                <Button
+                  key={x}
+                  onClick={() =>
+                    setValue("days", x, {
+                      shouldValidate: true,
+                      shouldDirty: true,
+                    })
+                  }
+                  size={"sm"}
+                  type={"button"}
+                  variant={"secondary"}
+                >
+                  {x} 天
+                </Button>
+              ))}
             </div>
           </div>
           <DescriptionList
