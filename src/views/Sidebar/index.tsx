@@ -43,11 +43,6 @@ export default function Sidebar() {
         link: "/fireJiSuan",
         tags: ["Fire"],
       },
-      {
-        title: "一些假数据",
-        link: "/fakeData",
-        tags: ["Lorem", "FakeData"],
-      },
     ];
   }, []);
 
@@ -72,11 +67,7 @@ const Cell = (props: { cell: ISidebarCell }) => {
         )}
       >
         <div className={"text-sm font-medium"}>{props.cell.title}</div>
-        <div className={"line-clamp-2 text-xs text-muted-foreground"}>
-          Lorem ipsum dolor sit amet, consectetur adipisicing elit. Cumque error
-          est facere fuga illo ipsam magnam quis! Atque consequatur eum ipsam
-          ipsum labore maxime minima, odio quam. Aperiam, debitis expedita?
-        </div>
+        <div className={"line-clamp-2 text-xs text-muted-foreground"}>暂无</div>
         {props.cell.tags?.length && (
           <div className={"flex flex-wrap gap-1"}>
             {props.cell.tags?.map((x) => <Badge key={x}>{x}</Badge>)}
