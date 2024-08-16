@@ -22,7 +22,7 @@ import {
 } from "@/shadcn/components/ui/card";
 import { Input } from "@/shadcn/components/ui/input";
 import { Label } from "@/shadcn/components/ui/label";
-import { DecimalOrUndefined } from "@/utils/bignumber";
+import { DecimalOr0, DecimalOrUndefined } from "@/utils/bignumber";
 import { maskForNumeric } from "@/utils/masks";
 
 export default function YuEBao() {
@@ -38,11 +38,6 @@ export default function YuEBao() {
     z.infer<typeof scheme>
   >({
     resolver: zodResolver(scheme),
-    defaultValues: {
-      principal: 10000,
-      days: 1,
-      rate: 4,
-    },
   });
 
   const [principal, rate, days] = watch(["principal", "rate", "days"]);
@@ -57,7 +52,7 @@ export default function YuEBao() {
   }, [principal, rate, days]);
 
   const income = useMemo(() => {
-    return totalIncome?.minus(DecimalOrUndefined(principal) ?? 0);
+    return totalIncome?.minus(DecimalOr0(principal));
   }, [principal, totalIncome]);
 
   return (
