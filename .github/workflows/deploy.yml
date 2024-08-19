@@ -52,3 +52,4 @@ jobs:
         with:
           branch: gh-pages
           folder: apps/docs/out
+          target-folder: docs
