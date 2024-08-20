@@ -47,9 +47,8 @@ jobs:
       - name: Build with Next.js
         run: pnpm build
 
-      - name: deploy Apps
+      - name: deploy App
         uses: JamesIves/github-pages-deploy-action@v4
         with:
           branch: gh-pages
-          folder: apps/yuebao/out
-          target-folder: yuebao
+          folder: out
