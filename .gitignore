@@ -35,5 +35,5 @@ yarn-error.log*
 *.tsbuildinfo
 next-env.d.ts
 
-# 忽略本地的 IDEA 配置
+
 .idea
