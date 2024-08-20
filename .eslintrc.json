@@ -1,0 +1,23 @@
+{
+  "extends": [
+    "next",
+    "prettier",
+    "plugin:prettier/recommended"
+  ],
+  "plugins": [
+    "prettier",
+    "simple-import-sort"
+  ],
+  "rules": {
+    "simple-import-sort/imports": [
+      1
+    ],
+    "simple-import-sort/exports": [
+      1
+    ],
+    "react/jsx-sort-props": [
+      1
+    ],
+    "prettier/prettier": "warn"
+  }
+}
